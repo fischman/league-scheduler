@@ -1,6 +1,4 @@
-// Local Variables:
-// compile-command: "LD_LIBRARY_PATH=$HOME/go/src/github.com/draffensperger/golp/lpsolve CGO_CFLAGS=\"-I$HOME/go/src/github.com/draffensperger/golp/lpsolve\" CGO_LDFLAGS=\"-L$HOME/go/src/github.com/draffensperger/golp/lpsolve -llpsolve55 -lm -ldl -lcolamd\" go run main.go"
-// End:
+// -*- mode: Go; compile-command: "LD_LIBRARY_PATH=$HOME/go/src/github.com/draffensperger/golp/lpsolve CGO_CFLAGS=\"-I$HOME/go/src/github.com/draffensperger/golp/lpsolve\" CGO_LDFLAGS=\"-L$HOME/go/src/github.com/draffensperger/golp/lpsolve -llpsolve55 -lm -ldl -lcolamd\" go run main.go" -*-
 
 package main
 
@@ -39,16 +37,16 @@ const (
 )
 
 func pVarsFromIndex(i int) (match, day, team int) {
-	team = i % numTeams
-	i /= numTeams
 	day = i % numDays
 	i /= numDays
+	team = i % numTeams
+	i /= numTeams
 	match = i
 	return
 }
 
 func indexFromPVars(m, d, t int) int {
-	return t + d*numDays + m*numDays*numTeams
+	return d + t*numDays + m*numDays*numTeams
 }
 
 func mVarsFromIndex(i int) (match, day, t1, t2 int) {
@@ -60,7 +58,7 @@ func mVarsFromIndex(i int) (match, day, t1, t2 int) {
 }
 
 func indexFromMVars(m, d, t1, t2 int) int {
-	return numPVars + m*numDays*numTeams*numTeams + d*numTeams*numTeams + t1*numTeams + t2
+	return numPVars + t2 + indexFromPVars(m, d, t1)*numTeams
 }
 
 func league() {
