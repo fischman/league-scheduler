@@ -1,6 +1,4 @@
-// Local Variables:
-// compile-command: "go run main2.go"
-// End:
+// -*- mode: Go; compile-command: "go run main2.go" -*-
 
 package main
 
